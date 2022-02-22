@@ -1,0 +1,47 @@
+.navigation-bar {
+    width: 100%;
+    height: 6.4rem;
+    left: 0px;
+    top: 0px;
+    background-color: $color-header-background;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navigation-bar-content{
+    width: 40.664rem;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navigation-bar-content__icon-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 8rem;
+}
+
+.navigation-bar-content__icon {
+    display: block;
+    height: 2.5rem;
+    width: 2.5rem;
+    background-position: cover;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    transition: all 0.2s;
+    
+    &:hover {
+        animation: shake 1s ease-out;
+        animation-iteration-count: infinite;
+    }
+
+    &--1{
+        margin-top: 3px;
+        background-image: url("../img/message-icon.svg");
+    }
+    &--2{
+        background-image: url("../img/notification-icon.svg");
+    }
+}

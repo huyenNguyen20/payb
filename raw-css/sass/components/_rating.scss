@@ -1,0 +1,23 @@
+.rating {
+    margin-top: $margin-heading-content;
+    display: flex;
+    align-items: center;
+    .star {
+        &-icon{
+            width: 2rem;
+            height: 2rem;
+        }
+    }
+    &-star-number{
+        font-size: 2rem;
+        font-weight: 700;
+        color: $color-purple;
+        margin-left: 0.8rem;
+    }
+    &-review-number{
+        margin-left: 0.5rem;
+        display: inline-block;
+        margin-top: 5px;
+        font-size: 1.4rem;
+    }
+}

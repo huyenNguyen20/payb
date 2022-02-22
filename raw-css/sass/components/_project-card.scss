@@ -1,0 +1,30 @@
+.project-card {
+    @include border;
+    border-radius: 4px;
+    margin-top: $margin-heading-content;
+    padding: 3rem 2rem;
+    display: flex;
+    justify-content: space-between;
+
+    &-info {
+        width: calc((100% / 5) * 3);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        &-developer {
+            display: flex;
+            align-items: center;
+
+            &-date{
+                span{
+                    display: inline-block;
+                    margin-left: 1rem;
+                }
+            }
+        }
+    }
+    &-price {
+        width: calc((100% / 5) * 1);
+    }
+}
