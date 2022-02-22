@@ -1,0 +1,40 @@
+@import "../../sass/main";
+
+.feature-box {
+    width: 37rem;
+    height: 30.6rem;
+    @include border;
+    border-radius: 4px;
+
+    &-stats {
+        display: flex;
+        height: 39%;
+        padding: 4.5% 0;
+        margin: 0 5%;
+        border-bottom: 1px solid $color-gray-4;
+
+        &> div{
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        &>div:first-child {
+            border-right: 1px solid $color-gray-4;
+        }
+
+        &__number {
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: $color-purple;
+            line-height: 4.4rem;
+        }
+    }
+
+    &-skill {
+        padding: 2.7rem;
+    }
+
+}

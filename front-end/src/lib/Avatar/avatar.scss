@@ -1,0 +1,41 @@
+@import "../../sass/main.scss";
+
+.avatar {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.avatar--small {
+    height: 6rem;
+    width: 18rem;
+    padding: 0 1rem;
+
+    &__image {
+        height: 5rem;
+        width: 5rem;
+        border-radius: 50%;
+    }
+
+    &__name {
+        font-weight: 700;
+    }
+}
+
+.avatar--big {
+    &__image {
+        height: 10.8rem;
+        width: 10.8rem;
+        border-radius: 50%;
+    }
+    &--info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        &__job {
+            font-weight: 400;
+            margin-bottom: 0rem;
+        }
+    }
+}
+
