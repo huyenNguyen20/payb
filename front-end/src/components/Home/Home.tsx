@@ -4,9 +4,17 @@ import { ProjectCard } from "../../lib/Card/ProjectCard";
 import { Header } from "../Header";
 import { NavBar } from "../NavBar";
 import "./home.scss";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Experience, Person, Portfolio, Project } from "../../data/interface";
+import { getExperience, getPersonDetail, getPortfolio, getProjects } from "../../data/api";
 
 export function Home () {
+    //For Data
+    const [person, setPerson] = useState<Person | null>(null);
+    const [personPortfolio, setPersonPortfolio] = useState<Portfolio[]>([]);
+    const [personProjects, setPersonProjects] = useState<Project[]>([]);
+    const [personExperience, setPersonExperience] = useState<Experience | null>(null);
+    //For Animations
     const [show, doShow] = useState({
         itemOne: false,
         itemTwo: false,
@@ -19,6 +27,22 @@ export function Home () {
     const refThree = useRef(null);
     const refFour = useRef(null);
     const refFive = useRef(null);
+
+    useEffect(() => {
+        const personData = getPersonDetail();
+        if(personData) setPerson(personData);
+
+        const experienceData = getExperience();
+        if(experienceData) setPersonExperience(experienceData);
+
+        const portfolioData = getPortfolio();
+        if(portfolioData) setPersonPortfolio(portfolioData);
+
+        const projectsData = getProjects();
+        if(projectsData) setPersonProjects(projectsData);
+
+    }, []);
+
 
     useLayoutEffect(() => {
         const topPos = (element : any) => element.getBoundingClientRect().top;
@@ -41,14 +65,14 @@ export function Home () {
         };
 
         window.addEventListener("scroll", onScroll);
-        
+
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
 
     return(
         <>
-        <NavBar/>
-        <Header/>
+        <NavBar user={{fullname: "Octavia Jr.", avatarUrl: "/img/person-icon-2.jpg"}}/>
+        {person && <Header person={person}/>}
         <main className="home-main">
             <section className="section-main-info">
                 <div className="section-main-info-aboutMe">
@@ -56,7 +80,7 @@ export function Home () {
                     <p 
                     className={`paragraph ${show.itemOne && "paragraph--animated"}`} 
                     ref={refOne}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        {person && person.description}
                     </p>
                 </div>
                 <div className="section-main-info-porfolio">
@@ -64,26 +88,26 @@ export function Home () {
                     <div 
                     className={`section-main-info-porfolio-list ${show.itemTwo && "animation-moveInLeft"}`} 
                     ref={refTwo}>
-                        <div className="section-main-info-porfolio-list-image">
-                            <img src="img/person-icon.jpg" alt="porfolio" className="porfolio-image"/>
-                        </div>
-                        <div className="section-main-info-porfolio-list-image">
-                            <img src="img/person-icon.jpg" alt="porfolio" className="porfolio-image"/>
-                        </div>
-                        <div className="section-main-info-porfolio-list-image">
-                            <img src="img/person-icon.jpg" alt="porfolio" className="porfolio-image"/>
-                        </div>
-                        <div className="section-main-info-porfolio-list-image">
-                            <img src="img/person-icon.jpg" alt="porfolio" className="porfolio-image"/>
-                        </div>
+                        {personPortfolio.map((item, idx) => (
+                            <div key={idx} className="section-main-info-porfolio-list-image">
+                                <img src={item.imageUrl} alt="porfolio" className="porfolio-image"/>
+                            </div>
+                        ))}
                     </div>
                 </div>
                 <div className="section-main-info-projects">
                     <h2 className="secondary-heading">Projects</h2>
                     <div className={`section-main-info-projects-list`}>
-                        <ProjectCard/>
-                        <ProjectCard/>
-                        <ProjectCard/>
+                        {personProjects.map((i, idx) => (
+                            <ProjectCard 
+                            key={idx} 
+                            project={i}
+                            person={{
+                                fullname: person?.fullName || "", 
+                                avatarUrl: person?.avatarUrl || ""
+                            }}
+                            />
+                        ))}
                     </div>
                 </div>
             </section>
@@ -96,7 +120,7 @@ export function Home () {
                 <div 
                 className={`section-additional-info-feature-box ${show.itemTwo && "animation-moveInRight"}`} 
                 ref={refFour}>
-                    <FeatureBox/>
+                    {personExperience && <FeatureBox experience={personExperience}/>}
                 </div>
                 <div className="section-additional-info-attachments">
                     <h2 className="secondary-heading">Attachments</h2>

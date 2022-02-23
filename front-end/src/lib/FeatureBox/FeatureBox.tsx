@@ -1,13 +1,17 @@
 import "./feature-box.scss";
 import { SkillList } from "../SkillList/SkillList";
+import { Experience } from "../../data/interface";
 
-export function FeatureBox () {
+interface FeatureBoxProps {
+    experience: Experience
+}
+export function FeatureBox (props: FeatureBoxProps) {
     return(
         <div className="feature-box">
             <div className="feature-box-stats">
                 <div>
                     <span className="feature-box-stats__number">
-                        32
+                        {props.experience.jobCompleted}
                     </span>
                     <span className="feature-box-stats__title">
                         Jobs Completed
@@ -15,7 +19,7 @@ export function FeatureBox () {
                 </div>
                 <div>
                     <span className="feature-box-stats__number">
-                        24
+                        {props.experience.rehire}
                     </span>
                     <span className="feature-box-stats__title">
                         Rehire
@@ -24,7 +28,7 @@ export function FeatureBox () {
             </div>
             <div className="feature-box-skill">
                 <h2 className="secondary-heading">Skills</h2>
-                <SkillList skillList={["ISO", "SQL", "Android", "Python", "JavaScript", "PHP"]} />
+                <SkillList skillList={props.experience.skills} />
             </div>
         </div>
     )

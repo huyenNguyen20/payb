@@ -1,6 +1,9 @@
 import "./bitcoin-icon.scss";
 
-export function BitcoinIcon () {
+interface BitcoinProps {
+    price: number;
+}
+export function BitcoinIcon (props: BitcoinProps) {
     return (
         <div className="bitcoin">
             <span className="bitcoin-icon">
@@ -9,7 +12,7 @@ export function BitcoinIcon () {
             <span className="bitcoin-price">
                 BTC 
                 <span className="bitcoin-price-number">
-                    0.0005
+                    {props.price}
                 </span>
             </span>
         </div>

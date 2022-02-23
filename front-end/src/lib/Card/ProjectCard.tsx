@@ -4,9 +4,14 @@ import { SmallAvatar } from "../Avatar/SmallAvatar";
 import "./project-card.scss";
 import { SkillList } from "../SkillList/SkillList";
 import { useLayoutEffect, useRef, useState } from "react";
+import { Project } from "../../data/interface";
+import { getYYYYMMDD } from "../../data/utils";
 
-
-export function ProjectCard () {
+interface ProjectCardProps{
+    person: {fullname: string, avatarUrl: string}
+    project: Project
+}
+export function ProjectCard (props: ProjectCardProps) {
     const [show, doShow] = useState({
         card: false,
     });
@@ -33,24 +38,27 @@ export function ProjectCard () {
         <div className={`project-card ${show.card && "animation-moveInLeft"}`} ref={refCard}>
             <div className="project-card-info">
                 <h3 className="tertiary-heading">
-                    IOS Developer
+                    {props.project.name}
                 </h3>
-                <Rating/>
+                <Rating stars={props.project.stars} reviews={props.project.reviews}/>
                 <p className="paragraph">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    {props.project.description}
                 </p>
-                <SkillList skillList={["SQL", "IOS", "React"]} />
+                <SkillList skillList={props.project.skills} />
                 <div className="project-card-info-developer">
-                    <SmallAvatar textColor="black"/>
+                    <SmallAvatar 
+                    person={props.person}
+                    textColor="black"
+                    />
                     <div className="project-card-info-developer-date">
                         &#8226;
-                        <span>2021/04/06</span>
+                        <span>{getYYYYMMDD(props.project.date)}</span>
                     </div>
                 </div>
 
             </div>
             <div className="project-card-price animation-moveInRight">
-                <BitcoinIcon/>
+                <BitcoinIcon price={props.project.price}/>
             </div>
         </div>
     );

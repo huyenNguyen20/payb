@@ -1,6 +1,10 @@
 import { SmallAvatar } from "../lib/Avatar/SmallAvatar";
 import "./nav-bar.scss";
-export function NavBar () {
+
+interface NavbarProps {
+    user: {fullname: string, avatarUrl: string}
+}
+export function NavBar (props: NavbarProps) {
     return(
         <>
          <nav className="navigation-bar">
@@ -15,7 +19,7 @@ export function NavBar () {
                     style={{backgroundImage: `url("/img/notification-icon.svg")`}}>
                     </button>
                 </div>
-                <SmallAvatar textColor="white"/>
+                <SmallAvatar person={props.user} textColor="white"/>
             </div>
         </nav>
         </>
